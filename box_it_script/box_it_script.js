@@ -32,11 +32,20 @@ function drawBarsAround(str) {
 // Write a boxIt function that takes an array of strings and returns a string where each is in a single column table. 
 // To add "new lines" to a string, use the \n special character.
 
-function boxIt(arr) {
-    for (let str of arr) {
-       if (str === arr[0]){
-        return drawTopBorder(10) + '\n' + drawBarsAround(str) +'\n'
-       }  
-}
-}
     
+function boxIt(arr) {
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === arr[0]) {
+            console.log (drawTopBorder(10) + '\n' + drawBarsAround(arr[i]) + '\n') /*+'\n' + drawMiddleBorder(10) + '\n') */ 
+        } else if (arr[i] !== arr[0] && arr[i] !== arr[arr.length-1]){
+            console.log(drawMiddleBorder(10)+ '\n' + drawBarsAround(arr[i]) + '\n')
+
+        } else {
+            console.log(drawMiddleBorder(10)+ '\n' + drawBarsAround(arr[i]) + '\n' + drawBottomBorder(10))
+        }
+        
+    }
+
+}
+     
