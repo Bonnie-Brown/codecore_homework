@@ -8,6 +8,7 @@ let values = cometogether.split(",")
 
 // Function that takes a number as an argument that returns that number of horizontal bard as a string.
 
+
 function drawLine(num) {
     return '─'.repeat(num)
     
@@ -42,21 +43,36 @@ function drawBarsAround(str) {
     
 function boxIt(arr) {
 
-    for (let i = 0; i < arr.length; i++) {
-        let num = 20
-        if (arr[i] === arr[0]) {
-            console.log (drawTopBorder(num) + '\n' + drawBarsAround(arr[i]) + '\n') 
+    //    let lgth = 0;
+    //    let longest;
+
+    //    for (let i = 0; i < arr.length; i++) {               // Trying to  find the largest of names and assign the value to num to manage how big the boxes need to be.
+
+    //     if (arr[i.length] > lgth){
+    //         lgth = arr[i].length;
+    //         longest = arr[i];
+    //     }
+    //   } let num = lgth + 1
+    //     console.log(num)
+
+       for (let i = 0; i < arr.length; i++) {
+
+        let num = 10;
+
+        if (arr.length <= 1){
+
+          console.log(drawTopBorder(num) + '\n' + drawBarsAround(arr[i]) + '\n' + drawBottomBorder(num))   
+        }
+        else if (arr[i] === arr[0]) {
+            console.log (drawTopBorder(num) + '\n' + drawBarsAround(arr[i]) + '\n' + (drawMiddleBorder(num))) 
         } else if (arr[i] !== arr[0] && arr[i] !== arr[arr.length-1]){
-            console.log(drawMiddleBorder(num)+ '\n' + drawBarsAround(arr[i]) + '\n')
+            console.log (drawBarsAround(arr[i]))
 
         } else {
             console.log(drawMiddleBorder(num)+ '\n' + drawBarsAround(arr[i]) + '\n' + drawBottomBorder(num))
         }
         
-    }
-
-};
-
-console.log(boxIt(values))
-
+    }  
+   } console.log(boxIt(values))
+  
      
