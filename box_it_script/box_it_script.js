@@ -11,7 +11,7 @@ let values = cometogether.split(",")
 
 function drawLine(num) {
     return '─'.repeat(num)
-    
+
 };
 
 //Write three functions: drawTopBorder, drawMiddleBorder and drawBottomBorder.
@@ -32,47 +32,49 @@ function drawBottomBorder(num) {
 // Write a `drawBarsAround` function that takes a string, surrounds it with
 // vertical lines then returns it.
 
-function drawBarsAround(str,num) {
+function drawBarsAround(str, num) {
     return '│' + str.padEnd(num) + '│'
-    
+
 };
 
 // Write a boxIt function that takes an array of strings and returns a string where each is in a single column table. 
 // To add "new lines" to a string, use the \n special character.
 
-    
+
 function boxIt(arr) {
 
-       let num = 0;
-       
+    let num = 0;
+    let output = [];
 
-       for (let i = 0; i < arr.length; i++) {               // Trying to  find the largest of names and assign the value to num to manage how big the boxes need to be.
 
-        if (arr[i].length > num){
+    for (let i = 0; i < arr.length; i++) {               // Trying to  find the largest of names and assign the value to num to manage how big the boxes need to be.
+
+        if (arr[i].length > num) {
             num = arr[i].length;
-            
+
         }
-       }
-        
-        
-       for (let i = 0; i < arr.length; i++) {
+    }
 
-        
 
-        if (arr.length <= 1){
+    for (let i = 0; i < arr.length; i++) {
 
-          console.log(drawTopBorder(num) + '\n' + drawBarsAround(arr[i],num) + '\n' + drawBottomBorder(num))   
+
+        if (arr.length <= 1) {
+
+            output += '\n' + (drawTopBorder(num) + '\n' + drawBarsAround(arr[i], num) + '\n' + drawBottomBorder(num))
         }
         else if (arr[i] === arr[0]) {
-            console.log (drawTopBorder(num) + '\n' + drawBarsAround(arr[i],num) + '\n' + (drawMiddleBorder(num))) 
-        } else if (arr[i] !== arr[0] && arr[i] !== arr[arr.length-1]){
-            console.log(drawBarsAround(arr[i], num) + `\n` + drawMiddleBorder(num))
+            output += '\n' + (drawTopBorder(num) + '\n' + drawBarsAround(arr[i], num) + '\n' + (drawMiddleBorder(num)))
+        } else if (arr[i] !== arr[0] && arr[i] !== arr[arr.length - 1]) {
+            output += '\n' + (drawBarsAround(arr[i], num) + `\n` + drawMiddleBorder(num))
 
         } else {
-            console.log(drawBarsAround(arr[i],num) + '\n' + drawBottomBorder(num))
+            output += '\n' + (drawBarsAround(arr[i], num) + '\n' + drawBottomBorder(num))
         }
-        
-    }  
-   } console.log(boxIt(values))
-  
+
+    } return output
+
+} console.log(boxIt(values))
+    
+
      
