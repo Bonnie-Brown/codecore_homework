@@ -1,9 +1,9 @@
 
 let value = [process.argv[2]];
 
-let cometogether = value.join(",")
+let cometogether = value.join(",");
 
-let values = cometogether.split(",")
+let values = cometogether.split(",");
 
 
 // Function that takes a number as an argument that returns that number of horizontal bard as a string.
@@ -53,28 +53,26 @@ function boxIt(arr) {
             num = arr[i].length;
 
         }
-    }
-
+    };
 
     for (let i = 0; i < arr.length; i++) {
 
 
         if (arr.length <= 1) {
 
-            output += '\n' + (drawTopBorder(num) + '\n' + drawBarsAround(arr[i], num) + '\n' + drawBottomBorder(num))
+            output += '\n' + (drawTopBorder(num) + '\n' + drawBarsAround(arr[i], num) + '\n' + drawBottomBorder(num));
         }
         else if (arr[i] === arr[0]) {
-            output += '\n' + (drawTopBorder(num) + '\n' + drawBarsAround(arr[i], num) + '\n' + (drawMiddleBorder(num)))
+            output += '\n' + (drawTopBorder(num) + '\n' + drawBarsAround(arr[i], num) + '\n' + (drawMiddleBorder(num)));
         } else if (arr[i] !== arr[0] && arr[i] !== arr[arr.length - 1]) {
-            output += '\n' + (drawBarsAround(arr[i], num) + `\n` + drawMiddleBorder(num))
-
+            output += '\n' + (drawBarsAround(arr[i], num) + `\n` + drawMiddleBorder(num));
         } else {
-            output += '\n' + (drawBarsAround(arr[i], num) + '\n' + drawBottomBorder(num))
+            output += '\n' + (drawBarsAround(arr[i], num) + '\n' + drawBottomBorder(num));
         }
 
-    } return output
+    } return output;
 
-} console.log(boxIt(values))
+} console.log(boxIt(values));
     
 
      
