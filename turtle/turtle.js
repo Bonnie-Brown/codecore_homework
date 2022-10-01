@@ -7,9 +7,6 @@ class Turtle {
         let start = [this.x, this.y];
         this.start = start;
 
-        let end = [];
-        this.end = end;
-
         let path = [[this.x, this.y]];
         this.path = path;
 
@@ -50,14 +47,11 @@ class Turtle {
         let ypoints = [];
         this.ypoints = ypoints;
 
-        let str 
-        this.str = str
+        let str; 
+        this.str = str;
 
         let newPath = [];
         this.newPath = newPath;
-
-        let difference
-        this.difference = difference;
 
     }
 
@@ -76,7 +70,6 @@ class Turtle {
             // if y axis:
         } else if (this.currentDirection === this.N || this.currentDirection == this.S) {
             this.y = steps;
-            this.vertical.push(this.y)
             this.currentCoordinates = [this.x, this.y];
             this.vertical.push(this.currentCoordinates[1]);
             this.path.push(this.currentCoordinates);
@@ -129,6 +122,8 @@ class Turtle {
 
     largest(){
 
+        // Created this method to used in the print function. Did not end up using these values.
+
         this.horizontal.forEach(x => {
             if (this.biggestX === " ") {
                 this.biggestX = x
@@ -158,9 +153,7 @@ class Turtle {
         return this
 
 
-    }
-
-
+    };
 
     print() {
 
@@ -179,36 +172,47 @@ class Turtle {
             
         }
 
-        //Struggling here with the nested array. 
+        // I struggled with figuring the print method and the for loop out. It is unfortunately not working as expected.
 
+        // I will go into detail here to explain the logic behind this.
+
+        //Finding the starting point
         for (let i = 0; i < this.ypoints.length; i++) {
-            for (let j = 0; j < this.xpoints.length; j++) {
+            for (let i = 0; i < this.xpoints.length; i++) {
                  if (this.xpoints[i] === 0 && this.ypoints[i] === 0){
-                     console.log("◯ ".repeat(this.biggestX) + '\n')
-            //      } else if (this.ypoints[i] > 0){
-            //         this.difference = this.biggestX - this.xpoints[i]
-            //          console.log("◯ ".repeat(this.ypoints[i]) + "x".repeat(this.xpoints) + ("◯ ".repeat(this.difference)) + '\n')
-            //      }
-            //     }
-            // }
+                     console.log('Beginning of Log'+ '\n')
+                     // if x = 0 and y = a number, we want to print a * on each new line for
+                     // until we reach y's value and begin a new line
+                 } else if(this.xpoints[i] === 0 && this.ypoints[i] !== 0){
+                     console.log(('* ' + '\n').repeat(this.ypoints[i]))
+                     // otherwise, if x = a number and y = 0, we want to print out * on the x axis until the 
+                     // x value is reached and begin a new line
+                 } else if (this.ypoints[i] === 0 && this.xpoints[i] !== 0){
+                     console.log('*'.repeat(this.xpoints[i]) + '\n')
+                    // The following else if and nested if statements are to consider the previous coordinates
+                    // since the turtle will not always have coordinates that include 0.
+                 } else if (this.xpoints[i] !== 0 && this.ypoints[i] !== 0){
+                    // if the value of x has changed since the previous iteration, this is what we will be logging.
+                    // We will be taking into consideration the previous steps and adding to them.
+                     if (this.xpoints[i-1] === this.xpoints[i] && this.ypoints[i-1] !== this.ypoints[i]){
+                         console.log(" ".repeat(this.xpoints[i-1] - 1) + '* '.repeat(this.xpoints[i]) + '\n')
+                    // Otherwise, if is is the y value that has changed, the log will look a little different.
+                    // We will still be taking into consideration the previous steps and adding to them.
+                     } else if (this.xpoints[i-1] !== this.xpoints[i] && this.ypoints[i-1] === this.ypoints[i]) {
+                         console.log(" ".repeat((this.xpoints[i-1])) + ("*" + '\n').repeat(this.ypoints[i]))
+                     }
+
+                    }
+                }   
+            
         };
-    }
 
-
-      
-        // return "." + ".".repeat(this.biggestX) + "\n" + ("." + this.space.repeat(this.biggestX - 1) + "." + "\n").repeat(this.biggestY - 1) + "." + ".".repeat(this.biggestX)
-
-    };
-
+        console.log('End of Log')
         return this
+    }
 }
-}
 
-
-
-
-
-const turt = new Turtle(0, 0).forward(5).right().forward(5).left().forward(10).largest().print()
+const turt = new Turtle(0, 0).forward(5).right().forward(5).allPoints().print()
 
 console.log(turt)
 
