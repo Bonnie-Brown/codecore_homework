@@ -61,7 +61,7 @@ function todo() {
 
     const new_task = function new_task() {
 
-        rl.question('\n Enter new task: \n \n', task => {
+        rl.question('\nEnter new task: \n \n', task => {
 
             contents.push([('[]' + " " + task)])
 
@@ -78,14 +78,12 @@ function todo() {
 
             if (input[1] == i) {
 
-                let newline = contents[i].join(" ").replace('[]', '[✓]').split()
-
-                contents.splice(i, 1);
-
-                contents.push(newline);
+                let newline = contents[i].join(" ").replace('[]', '[✓]').split();
+                
+                contents[i] = newline;
                
-
-                console.log('\n' +(contents[i].join("").slice(4)), 'completed' + '\n');
+                console.log('\n' +(newline.join("").slice(4)), 'completed' + '\n');
+               
 
                 menu()
             } 
