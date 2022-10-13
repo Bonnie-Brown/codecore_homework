@@ -1,0 +1,22 @@
+<%- include("../partials/header.ejs") %>
+
+<h3> Cohorts </h3>
+<div>
+    <% for (let cohort of cohorts) { %>
+        <div class = "cohort">
+            <div>
+                <h5 class = "name"> <%- cohort.name %> </h5>
+            </div>
+            <div>
+                <p class = "members"> <%- cohort.members %> </p>
+            </div>
+            <button> Show Cohort </button>
+        </div>
+    
+    <% } %>
+
+    
+</div>
+
+
+<%- include("../partials/footer.ejs") %>

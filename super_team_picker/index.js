@@ -34,11 +34,11 @@ app.get('/', (req, res) => {
 
 // Cohorts
 
-app.get('/cohorts', (req, res)=>{
-    res.render('cohorts', {
-        title: 'Cohorts'
-    })
-});
+// app.get('/cohorts', (req, res)=>{
+//     res.render('cohorts', {
+//         title: 'Cohorts'
+//     })
+// });
 
 // New
 
@@ -49,8 +49,8 @@ app.get('/new', (req, res) => {
 })
 
 // Router
-const newRouter = require('./routes/new')
-app.use('/new', newRouter)
+const cohortRouter = require('./routes/cohorts')
+app.use('/cohorts', cohortRouter)
 
 // Set View Engine
 
