@@ -48,7 +48,9 @@ app.get('/new', (req, res) => {
     })
 })
 
-
+// Router
+const newRouter = require('./routes/new')
+app.use('/new', newRouter)
 
 // Set View Engine
 
