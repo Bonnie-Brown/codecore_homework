@@ -1,0 +1,23 @@
+<div>
+    <input type="text"
+    class = "form-group"
+    name = "name"
+    placeholder = " Flying Funks"
+    value = "<%- cohort? cohort.name: ' ' %>"
+     >
+
+    <textarea>
+    class = "form-group"
+    name = "members"
+    placeholder = "Jon Snow, Daenerys, Melisandre, Arya Stark"
+    value = "<%- cohort? cohort.members: ' ' %>"
+    </textarea>
+    
+    <input type="text"
+    class = "form-group"
+    name = "imageUrl"
+    placeholder = "e.g. https://www.example.com/somepng"
+    value = "<%- cohort? cohort.imageUrl: ' ' %>"
+     >
+</div>
+

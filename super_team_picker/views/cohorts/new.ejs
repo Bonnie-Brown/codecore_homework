@@ -1,0 +1,13 @@
+<%- include("../partials/header.ejs") %>
+
+<h1> New Cohort </h1>
+<form action="/cohorts" method="post">
+
+    <%- include("../partials/formInput.ejs") %>
+
+
+    <input type="submit" value = "Create Cohort" class = "btn btn-primary">
+    
+</form>
+
+<%- include("../partials/footer.ejs") %>

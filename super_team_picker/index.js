@@ -32,22 +32,6 @@ app.get('/', (req, res) => {
     })
 });
 
-// Cohorts
-
-// app.get('/cohorts', (req, res)=>{
-//     res.render('cohorts', {
-//         title: 'Cohorts'
-//     })
-// });
-
-// New
-
-app.get('/new', (req, res) => {
-    res.render('new', {
-        title: 'New Cohorts'
-    })
-})
-
 // Router
 const cohortRouter = require('./routes/cohorts')
 app.use('/cohorts', cohortRouter)

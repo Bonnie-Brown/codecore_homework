@@ -3,14 +3,14 @@
 <h3> Cohorts </h3>
 <div>
     <% for (let cohort of cohorts) { %>
-        <div class = "cohort">
-            <div>
+        <div class = "card mb-4">
+            <div class = "card-body">
                 <h5 class = "name"> <%- cohort.name %> </h5>
             </div>
             <div>
-                <p class = "members"> <%- cohort.members %> </p>
+                <p class = "card-text"> <%- cohort.members %> </p>
             </div>
-            <button> Show Cohort </button>
+            <a class="btn btn-primary" href="/cohorts/<%- cohort.id %>">Show Cohort</a>
         </div>
     
     <% } %>
