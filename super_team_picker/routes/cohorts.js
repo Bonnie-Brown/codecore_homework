@@ -5,6 +5,12 @@ const router = express.Router();
 
 // Team Routes
 
+// Render New Cohort
+router.get('/new', (req, res) => {
+   res.render('cohorts/new', { cohort: false })
+})
+
+
 // Index of all cohorts
 
 router.get('/', (req, res) => {
@@ -26,14 +32,10 @@ router.get('/:id', (req, res) => {
       })
    })
 
-// Render New Cohort
 
-router.get('/new', (req, res) => {
-   res.render('cohorts/new', {cohort: false})
-})
 
 // Create New Cohort
-router.post('/cohorts', (req, res) => {
+router.post('/', (req, res) => {
    knex('cohorts')
    .insert({
       name: req.body.name,
