@@ -5,6 +5,20 @@ const app = express();
 
 app.use(express.urlencoded({extended: true}));
 
+// Require Method Override Middleware
+
+const methodOverride = require("method-override")
+
+// Use Method Override Middlewate
+// This activates the method override middleware
+
+app.use(methodOverride((req, res) => {
+    if (req.body && req.body._method) {
+        const method = req.body._method;
+        return method
+    }
+}))
+
 // Require Cookie Parser
 
 const cookieParser = require('cookie-parser')

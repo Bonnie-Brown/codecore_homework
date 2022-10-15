@@ -32,7 +32,15 @@ router.get('/:id', (req, res) => {
       })
    })
 
-
+// Delete (Destroy) a Single Post
+router.delete("/:id", (req, res) => {
+   knex('cohorts')
+   .where('id', req.params.id)
+   .del()
+   .then(() => {
+      res.redirect("/cohorts")
+   })
+})
 
 // Create New Cohort
 router.post('/', (req, res) => {
@@ -48,5 +56,32 @@ router.post('/', (req, res) => {
       res.redirect(`/cohorts/${cohort.id}`)
    })
 })
+
+// Edit a Cohort
+
+router.get("/:id/edit", (req,res) => {
+   knex("cohorts")
+   .where("id", req.params.id)
+   .first()
+   .then(cohort => {
+      res.render("cohorts/edit", {cohort: cohort});
+   })
+})
+
+// Update a Cohorts
+
+router.patch("/:id", (req, res) => {
+   const updatedCohort = {
+      name: req.body.name,
+      members: req.body.members,
+      logoUrl: req.body.logoUrl
+   };
+   knex("cohorts")
+      .where("id", req.params.id)
+      .update(updatedCohort)
+      .then(() => {
+         res.redirect(`/cohorts/${req.params.id}`);
+      });
+});
 
 module.exports = router

@@ -1,0 +1,28 @@
+<%- include("../partials/header.ejs") %>
+
+<h3> Edit Cohort </h3>
+
+<form action="/cohorts/<%- cohort.id %>" method="POST">
+    <input type="hidden" name = "_method" value = "PATCH">
+
+    <div>
+        <input type="text" class="form-control" name="name" value = "<%- cohort.name %>" />
+    
+        <br>
+    
+        <textarea class="form-control" name="members" value = "<%- cohort.members %>"><%- cohort.members %></textarea>
+    
+        <br>
+    
+        <input type="text" class="form-control" name="logoUrl" value = "<%- cohort.logoUrl %>" />
+    
+    </div>
+
+    <br>
+
+    <input type="submit" class = "btn btn-outline-success" value = "Submit">
+
+</form>
+
+
+<%- include("../partials/footer.ejs") %>

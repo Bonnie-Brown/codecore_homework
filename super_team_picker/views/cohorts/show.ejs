@@ -7,6 +7,23 @@
             <%- cohort.members %>
         </p>
 
+        <div>
+            <a class = "btn btn-outline-success mr-2" href= "/cohorts/<%- cohort.id %>/edit">
+                Edit
+            </a>
+        </div>
+
+        <br>
+
+        <div>
+
+        <form action="/cohorts/<%- cohort.id %>" method = "POST">
+            <input type="hidden" name = "_method" value = "DELETE">
+            <input type="submit" class = "btn btn-outline-danger" value = "Delete">
+        </form>
+
+        </div>
+
     </div>
     
 
