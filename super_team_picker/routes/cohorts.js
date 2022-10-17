@@ -3,7 +3,7 @@ const knex = require('../db/client');
 
 const router = express.Router();
 
-// Team Routes
+// Routes
 
 // Render New Cohort
 router.get('/new', (req, res) => {
@@ -32,6 +32,8 @@ router.get('/:id', (req, res) => {
       })
    })
 
+
+
 // Delete (Destroy) a Single Post
 router.delete("/:id", (req, res) => {
    knex('cohorts')
@@ -55,7 +57,8 @@ router.post('/', (req, res) => {
       const cohort = cohorts[0]
       res.redirect(`/cohorts/${cohort.id}`)
    })
-})
+  }
+)
 
 // Edit a Cohort
 

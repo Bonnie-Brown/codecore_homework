@@ -1,34 +1,117 @@
 <%- include("../partials/header.ejs") %>
 
+<!-- Show Cohort -->
+
 <div class = "card mb-4">
     <div class = "card-body">
         <h5> <%- cohort.name %> </h5>
         <p class = "card-text">
             <%- cohort.members %>
         </p>
+    </div> 
+</div>
 
+<div>
+
+    <div class="d-grid gap-2 d-md-block">
+        <a class="btn btn-outline-primary" href="/cohorts/<%- cohort.id %>/edit">
+            Edit
+        </a>
+    </div>
+
+    <br>
+
+    <div class="d-grid gap-2 d-md-block">
+        <form action="/cohorts/<%- cohort.id %>" method="POST">
+           <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" class="btn btn-outline-danger" value="Delete"></button>
+        </form>    
+    </div>
+
+</div>
+
+<br>
+
+<!-- Team Assignment Form -->
+
+<h5> Method </h5>
+
+<form action= "" method="GET">
+
+ <div>
+      <div>
+
+        <input name="team_count" type="radio" id="team_count" value="<%- team_count %>">
+        <label for="team_count">Team Count</label>
+
+      </div>
+
+      <div>
+
+        <input name="number_per_team" type="radio" id="number_per_team" value="<%- number_per_team %>">
+        <label for="number_per_team">Number Per Team</label>
+
+        </div>
+       
         <div>
-            <a class = "btn btn-outline-success mr-2" href= "/cohorts/<%- cohort.id %>/edit">
-                Edit
-            </a>
+
+            <label for="quantity">Quantity</label>
+            <input type="text" class="form-control" name="quantity" value="<%- quantity %>" />
+
         </div>
 
         <br>
 
         <div>
 
-        <form action="/cohorts/<%- cohort.id %>" method = "POST">
-            <input type="hidden" name = "_method" value = "DELETE">
-            <input type="submit" class = "btn btn-outline-danger" value = "Delete">
-        </form>
-
+            <input type="submit" value="Assign Teams" class="btn btn-outline-primary">
+        
         </div>
 
-    </div>
+  </div>
+
+</form>
+
+<!-- Team Assignment View -->
+
+<!--  If team count is selected, create numbers of teams -->
+
+ <% if (team_count && quantity){ 
+
+    let teams=[];
+    let count=0;
     
+    
+    for (let i=0; i < quantity; i++) {
+        
+        count +=1;
 
-</div>
+        team_name=`Team:${count}`;
 
+        teams.push(team_name) } %>
 
+        
+    <% } else if (number_per_team && quantity) {
+
+        let teams = [];
+
+        let member_array = members.split(",");
+
+        let team_count = member_array.length / quantity;
+
+        let count = 0;
+
+        for (let i = 0; i < team_count; i++) {
+            count += 1;
+
+            team_name = `Team:${count}`
+
+            teams.push(team_name) 
+
+        }
+    } %>
+
+   
+        
 
 <%- include("../partials/footer.ejs") %>

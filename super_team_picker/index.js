@@ -21,10 +21,38 @@ app.use(methodOverride((req, res) => {
 
 // Require Cookie Parser
 
-const cookieParser = require('cookie-parser')
-app.use(cookieParser())
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 // Custom Cookie Middleware Goes Here
+
+app.use((req, res, next) => {
+    let team_count = req.cookies.team_counts;
+    let number_per_team = req.cookies.number_per_team;
+    let quantity = req.cookies.quantity;
+
+    team_count = [];
+
+    number_per_team = [];
+
+    quantity = [];
+
+    if (team_count){
+        res.locals.team_count = team_count
+    }
+
+    if (number_per_team){
+        res.locals.number_per_team = number_per_team
+    }
+
+    if (quantity){
+        res.locals.quantity = quantity
+    }
+
+    next();
+
+})
+
 
 // Require Path for express.static
 
@@ -36,17 +64,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 const logger = require('morgan');
 app.use(logger('dev'));
 
+
 // Routers
 
 // Home 
 
 app.get('/', (req, res) => {
+   
     res.render('home', {
-        title: 'Home'
-    })
+        title: 'Welcome to the Super Team Picker Homepage'
+    })   
 });
 
-// Router
+
+// Routes
+
+// Cohort Router
 const cohortRouter = require('./routes/cohorts')
 app.use('/cohorts', cohortRouter)
 
