@@ -26,32 +26,6 @@ app.use(cookieParser());
 
 // Custom Cookie Middleware Goes Here
 
-app.use((req, res, next) => {
-    let team_count = req.cookies.team_counts;
-    let number_per_team = req.cookies.number_per_team;
-    let quantity = req.cookies.quantity;
-
-    team_count = [];
-
-    number_per_team = [];
-
-    quantity = [];
-
-    if (team_count){
-        res.locals.team_count = team_count
-    }
-
-    if (number_per_team){
-        res.locals.number_per_team = number_per_team
-    }
-
-    if (quantity){
-        res.locals.quantity = quantity
-    }
-
-    next();
-
-})
 
 
 // Require Path for express.static
@@ -80,7 +54,8 @@ app.get('/', (req, res) => {
 // Routes
 
 // Cohort Router
-const cohortRouter = require('./routes/cohorts')
+const cohortRouter = require('./routes/cohorts');
+const { render } = require('ejs');
 app.use('/cohorts', cohortRouter)
 
 // Set View Engine
@@ -88,9 +63,27 @@ app.use('/cohorts', cohortRouter)
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+// Teams POST request
+// app.post('/assign_teams', (req, res) => {
+
+//     const method = req.query.method;
+//     const quantity = req.query.quantity;
+
+//     res.locals.method = "";
+//     res.locals.quantity = "";
+
+//     if (method){
+//         res.locals.method = method
+//     }
+//     if (quantity){
+//         res.locals.quantity = quantity
+//     }
+//     }
+// )
+
 //Server
 
-const PORT = 3000;
+const PORT = 5000;
 const DOMAIN = 'localhost';
 
 

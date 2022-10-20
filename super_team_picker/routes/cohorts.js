@@ -24,15 +24,25 @@ knex('cohorts')
 // Show a single cohort
 
 router.get('/:id', (req, res) => {
-   knex('cohorts')
-    .where('id', req.params.id)
-    .first() // This will grab the first instance that matches the requirements
-    .then(cohort => {
-      res.render('cohorts/show', {cohort: cohort})
+
+    let method = ""
+    let quantity = ""
+
+    if (req.query.method && req.query.quantity){
+
+      method = req.query.method
+
+      quantity = req.query.quantity
+
+    }
+
+    knex('cohorts')
+     .where('id', req.params.id)
+     .first() // This will grab the first instance that matches the requirements
+     .then(cohort => {
+       res.render('cohorts/show', {cohort, method, quantity})
       })
    })
-
-
 
 // Delete (Destroy) a Single Post
 router.delete("/:id", (req, res) => {
@@ -60,6 +70,7 @@ router.post('/', (req, res) => {
   }
 )
 
+
 // Edit a Cohort
 
 router.get("/:id/edit", (req,res) => {
@@ -69,15 +80,20 @@ router.get("/:id/edit", (req,res) => {
    .then(cohort => {
       res.render("cohorts/edit", {cohort: cohort});
    })
+
 })
 
 // Update a Cohorts
 
 router.patch("/:id", (req, res) => {
+
+
+
    const updatedCohort = {
       name: req.body.name,
       members: req.body.members,
-      logoUrl: req.body.logoUrl
+      logoUrl: req.body.logoUrl,
+    
    };
    knex("cohorts")
       .where("id", req.params.id)

@@ -11,44 +11,40 @@
     </div> 
 </div>
 
-<div>
-
-    <div class="d-grid gap-2 d-md-block">
-        <a class="btn btn-outline-primary" href="/cohorts/<%- cohort.id %>/edit">
-            Edit
-        </a>
+<div class="d-flex">
+    <div class="m-3">
+        <a href="/cohorts/<%-cohort.id%>/edit" class="btn btn-outline-primary">Edit</a>
     </div>
-
-    <br>
-
-    <div class="d-grid gap-2 d-md-block">
-        <form action="/cohorts/<%- cohort.id %>" method="POST">
-           <input type="hidden" name="_method" value="DELETE">
-            <input type="submit" class="btn btn-outline-danger" value="Delete"></button>
-        </form>    
+    <div class="m-3">
+        <form action="/cohorts/<%-cohort.id%>" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-outline-danger">Delete</button>
+        </form>
     </div>
-
 </div>
 
 <br>
 
 <!-- Team Assignment Form -->
 
-<h5> Method </h5>
 
-<form action= "" method="GET">
 
- <div>
+<form method="GET">
+
+ <div class = "card mb-4">
+
+    <h5> Method </h5>
+
       <div>
 
-        <input name="team_count" type="radio" id="team_count" value="<%- team_count %>">
+        <input name="method" type="radio" id="team_count" value="team_count">
         <label for="team_count">Team Count</label>
 
       </div>
 
       <div>
 
-        <input name="number_per_team" type="radio" id="number_per_team" value="<%- number_per_team %>">
+        <input name="method" type="radio" id="number_per_team" value="number_per_team">
         <label for="number_per_team">Number Per Team</label>
 
         </div>
@@ -56,7 +52,7 @@
         <div>
 
             <label for="quantity">Quantity</label>
-            <input type="text" class="form-control" name="quantity" value="<%- quantity %>" />
+            <input type="text" class="form-control" name="quantity" value="quantity" />
 
         </div>
 
@@ -68,50 +64,98 @@
         
         </div>
 
+       
+
   </div>
 
 </form>
 
-<!-- Team Assignment View -->
+<% if (method == 'team_count'){ 
 
-<!--  If team count is selected, create numbers of teams -->
+    let teams = [];
+    let assignments = [];
+    let count = 0
 
- <% if (team_count && quantity){ 
+    let str = cohort.members;
+    let members_arr = str.split(",");
+    let teamCount = members_arr.length / quantity;
 
-    let teams=[];
-    let count=0;
-    
-    
-    for (let i=0; i < quantity; i++) {
-        
-        count +=1;
+    for (let i = 0; i < quantity; i++) {
 
-        team_name=`Team:${count}`;
+        count += 1
+        team_name = `Team ${count}`
 
-        teams.push(team_name) } %>
+        teams.push(team_name)   
+    } 
 
-        
-    <% } else if (number_per_team && quantity) {
+    for (let i = 0; i < teams.length; i++) {
+        for (let number = 0; number < teamCount; number++) {
+            
+            assignments.push({
+                "team": teams[i],
+                "member": members_arr[0]
+            })
 
-        let teams = [];
-
-        let member_array = members.split(",");
-
-        let team_count = member_array.length / quantity;
-
-        let count = 0;
-
-        for (let i = 0; i < team_count; i++) {
-            count += 1;
-
-            team_name = `Team:${count}`
-
-            teams.push(team_name) 
-
+            members_arr = members_arr.slice(1)
+            
         }
+        
     } %>
 
-   
+     <% assignments.forEach(element => { %>
+
+        <div> <%- element.team %> </div>
+        <div> <%- element.member %> </div>
+
+        
+    <% }); %>
+
+
+     <% } else if (method == 'number_per_team'){
+         
+         let teams = [];
+         let count = 0;
+
+         let str = cohort.members;
+         let members_arr = str.split(",");
+
+         let assignments = [];
+
+         let number = members_arr.length / quantity
+
+         for (let i = 0; i < number; i++) {
+            
+            count += 1
+
+            team_name = `Team ${count}`
+
+            teams.push(team_name) 
+            
+         } 
+
+        for (let i = 0; i < teams.length; i++){
+            for (let number=0; number < quantity; number++) {
+
+                assignments.push({
+                    "team": teams[i],
+                    "member": members_arr[0]
+                })
+
+                members_arr = members_arr.slice(1)
+
+              } 
+        } %>
+
+            <% assignments.forEach(element => { %>
+
+                <div> <%- element.team %> </div>
+                <div> <%- element.member %> </div>
+
+                
+           <% });%>
+
+      <% } %>
         
 
+        
 <%- include("../partials/footer.ejs") %>
