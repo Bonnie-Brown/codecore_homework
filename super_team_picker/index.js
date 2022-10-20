@@ -19,14 +19,6 @@ app.use(methodOverride((req, res) => {
     }
 }))
 
-// Require Cookie Parser
-
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
-
-// Custom Cookie Middleware Goes Here
-
-
 
 // Require Path for express.static
 
@@ -62,24 +54,6 @@ app.use('/cohorts', cohortRouter)
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
-
-// Teams POST request
-// app.post('/assign_teams', (req, res) => {
-
-//     const method = req.query.method;
-//     const quantity = req.query.quantity;
-
-//     res.locals.method = "";
-//     res.locals.quantity = "";
-
-//     if (method){
-//         res.locals.method = method
-//     }
-//     if (quantity){
-//         res.locals.quantity = quantity
-//     }
-//     }
-// )
 
 //Server
 

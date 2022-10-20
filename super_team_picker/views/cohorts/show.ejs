@@ -70,14 +70,27 @@
 
 </form>
 
-<% if (method == 'team_count'){ 
+<% function shuffleArray(array) {
+        
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+
+      return array
+    
+    }
+
+    if (method == 'team_count'){ 
 
     let teams = [];
     let assignments = [];
-    let count = 0
-
+    let count = 0;
+    
     let str = cohort.members;
-    let members_arr = str.split(",");
+    let members = str.split(",");
+
+    let members_arr = shuffleArray(members);
     let teamCount = members_arr.length / quantity;
 
     for (let i = 0; i < quantity; i++) {
@@ -114,14 +127,13 @@
      <% } else if (method == 'number_per_team'){
          
          let teams = [];
+         let assignments = [];
          let count = 0;
 
          let str = cohort.members;
-         let members_arr = str.split(",");
-
-         let assignments = [];
-
-         let number = members_arr.length / quantity
+         let members = str.split(",");
+         let members_arr = shuffleArray(members);
+         let number = members_arr.length / quantity;
 
          for (let i = 0; i < number; i++) {
             
