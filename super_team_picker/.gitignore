@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/macos,linux,node,rails
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,linux,node,rails
+# Created by https://www.toptal.com/developers/gitignore/api/node,macos,windows,linux
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,macos,windows,linux
 
 ### Linux ###
 *~
@@ -189,71 +189,30 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
-### Rails ###
-*.rbc
-capybara-*.html
-.rspec
-/db/*.sqlite3
-/db/*.sqlite3-journal
-/db/*.sqlite3-[0-9]*
-/public/system
-/coverage/
-/spec/tmp
-*.orig
-rerun.txt
-pickle-email-*.html
+### Windows ###
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
 
-# Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+# Dump file
+*.stackdump
 
-# TODO Comment out this rule if you are OK with secrets being uploaded to the repo
-config/initializers/secret_token.rb
-config/master.key
+# Folder config file
+[Dd]esktop.ini
 
-# Only include if you have production secrets in this file, which is no longer a Rails default
-# config/secrets.yml
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
-# dotenv, dotenv-rails
-# TODO Comment out these rules if environment variables can be committed
-.env*.local
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
 
-## Environment normalization:
-/.bundle
-/vendor/bundle
+# Windows shortcuts
+*.lnk
 
-# these should all be checked in to normalize the environment:
-# Gemfile.lock, .ruby-version, .ruby-gemset
-
-# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
-.rvmrc
-
-# if using bower-rails ignore default bower_components path bower.json files
-/vendor/assets/bower_components
-*.bowerrc
-bower.json
-
-# Ignore pow environment settings
-.powenv
-
-# Ignore Byebug command history file.
-.byebug_history
-
-# Ignore node_modules
-
-# Ignore precompiled javascript packs
-/public/packs
-/public/packs-test
-/public/assets
-
-# Ignore yarn files
-/yarn-error.log
-
-# Ignore uploaded files in development
-/storage/*
-!/storage/.keep
-/public/uploads
-
-# End of https://www.toptal.com/developers/gitignore/api/macos,linux,node,rails
+# End of https://www.toptal.com/developers/gitignore/api/node,macos,windows,linux
