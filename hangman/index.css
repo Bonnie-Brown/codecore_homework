@@ -4,7 +4,12 @@ h1 {
 }
 
 h5 {
-    padding-bottom: 350px;
+    padding-bottom: 150px;
+}
+
+.placeholder{
+    margin-bottom: 180px;
+    background-color: white;
 }
 
 
