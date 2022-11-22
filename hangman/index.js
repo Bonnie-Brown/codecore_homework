@@ -5,21 +5,31 @@ const colours = ["white", "yellow", "blue", "red", "green", "black", "brown", "g
 // Set Additional Variables
 
 let word = '';
-let correct = [];
-let incorrect = [];
-let guessed = [];
+let max_failed_attempts = 6;
+let wrong_guesses = 0;
+let guessed_letters = [];
+let placeholder = null;
 
 
 // Function to Select a Word from Colours at Random
 
-function selectWord(){
+function random_word(){
 
     word = colours[Math.floor(Math.random() * colours.length)]
-    
 
 }
 
 // Add Event Listener to Buttons
+
+// Reset Button
+
+reset_button = document.querySelector('.btn-danger')
+
+reset_button.addEventListener('click', event => {
+    reset()
+})
+
+// Letter Button
 
 letter_buttons = document.querySelectorAll('.btn-secondary')
 
@@ -29,28 +39,85 @@ letter_buttons.forEach(letter_button => {
     })
 });
 
+// Function to react to a clicked button
+
 function guess(letter_button) {
     
-    // Disable the letter's button
+    // Disable the letter's button once clicked
     letter_button.setAttribute('disabled', true)
 
     let letter = letter_button.innerHTML.toLowerCase()
 
-    
+    if (!guessed_letters.includes(letter)) {
+        guessed_letters.push(letter)
+    } 
 
     // Determine whether or not the letter is part
     // of the word
 
+    // If it is, update the game and check to see if the user has
+    // won the game
+
     if (word.indexOf(letter) >= 0){
-        console.log('Success!')
+        update_game()
+        game_status()
+       
     } else {
-        console.log('Boo!')
-        console.log(letter)
+
+        incorrect_guess()
+        
     }
-    
-    // if (!guessed.includes(letter)){
-    //     guessed.push(letter)
-    // } 
 }
 
-selectWord()
+// When an incorrect guess is made, update the picture and check to see
+// if the user has lost the game
+function incorrect_guess(){
+
+    wrong_guesses += 1
+
+    update_picture();
+    game_status();
+
+}
+
+// Check to see if a user has won or lost a game
+function game_status(){
+
+    if (placeholder === word){
+        window.alert('You won!')
+    } else if (wrong_guesses === max_failed_attempts){
+        window.alert('You lost!')
+        document.querySelector('.placeholder').innerHTML = `The colour was: ${word}`
+    }
+}
+
+// Update the picture as the user guesses incorrectly
+function update_picture(){
+
+    document.getElementById('image').src = './img/gallows' + wrong_guesses + '.jpg'
+
+}
+
+// Update the game as the user guesses correctly
+function update_game(){
+
+    placeholder = word.split('').map(letter => (guessed_letters.indexOf(letter) >= 0 ? letter: " _ ")).join('')
+
+    document.querySelector('.placeholder').innerHTML = placeholder
+
+    };
+
+// Reset the game when the user clicks the reset button
+function reset(){
+    wrong_guesses = 0;
+    guessed_letters = [];
+    document.getElementById('image').src = './img/gallows0.jpg';
+    random_word();
+    update_game();
+}
+
+
+random_word();
+update_game();
+
+
