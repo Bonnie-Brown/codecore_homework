@@ -1,168 +1,188 @@
-// Create Array of Colours to Choose From
+$(document).ready(function(){
 
-const colours = ["white", "yellow", "blue", "red", "green", "black", "brown", "grey", "pink", "orange", "purple", "silver", "gold", "lavender", "teal"]
+    // Create Array of Colours to Choose From
 
-// Set Additional Variables
+    // const colours = ["white", "yellow", "blue", "red", "green", "black", "brown", "grey", "pink", "orange", "purple", "silver", "gold", "lavender", "teal"]
+       const colours = ["white"]
+    // Set Additional Variables
 
-let word = '';
-let max_failed_attempts = 6;
-let wrong_guesses = 0;
-let guessed_letters = [];
-let placeholder = null;
-let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    let word = '';
+    let max_failed_attempts = 6;
+    let wrong_guesses = 0;
+    let guessed_letters = [];
+    let placeholder = null;
+    let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
-// ------------------ Key Test 
+    const winner = () => new Audio("sounds/tada.wav");
+    const loser = () => new Audio("sounds/sad.wav");
 
-// addEventListener('keyup', (event) => {
+    // ------------------ Key Test 
 
-//   key_up(event)
+    // addEventListener('keyup', (event) => {
+
+    //   key_up(event)
+
+    // })
+
+    // function key_up(event){
+    //     console.log(event)
+
+    // }
+
+    // // ------------------  
+
+
+    // Function to Select a Word from Colours at Random
+
+    function random_word() {
+
+        word = colours[Math.floor(Math.random() * colours.length)]
+        console.log(word)
+
+    }
+
+    random_word();
     
-// })
 
-// function key_up(event){
-//     console.log(event)
+    // Add Event Listener to Buttons
 
-// }
+    // Reset Button
 
-// // ------------------  
+    reset_button = document.querySelector('.btn-danger')
 
-
-// Function to Select a Word from Colours at Random
-
-function random_word(){
-
-    word = colours[Math.floor(Math.random() * colours.length)]
-
-}
-
-// Add Event Listener to Buttons
-
-// Reset Button
-
-reset_button = document.querySelector('.btn-danger')
-
-reset_button.addEventListener('click', event => {
-    reset()
-})
-
-// Letter Button
-
-letter_buttons = document.querySelectorAll('.btn-secondary')
-
-letter_buttons.forEach(letter_button => {
-    letter_button.addEventListener('click', event =>{
-        guess(letter_button)
+    reset_button.addEventListener('click', event => {
+        reset()
     })
-});
 
-// Function to react to a clicked button
+    // Letter Button
 
-function guess(letter_button) {
-    
-    // Disable the letter's button once clicked
-    letter_button.setAttribute('disabled', true)
+    letter_buttons = document.querySelectorAll('.btn-secondary')
 
-    let letter = letter_button.innerHTML.toLowerCase()
+    letter_buttons.forEach(letter_button => {
+        letter_button.addEventListener('click', event => {
+            guess(letter_button)
+        })
+    });
 
-    if (!guessed_letters.includes(letter)) {
-        guessed_letters.push(letter)
-    } 
+    // Function to react to a clicked button
 
-    // Determine whether or not the letter is part
-    // of the word
+    function guess(letter_button) {
 
-    // If it is, update the game and check to see if the user has
-    // won the game
+        // Disable the letter's button once clicked
+        letter_button.setAttribute('disabled', true)
 
-    if (word.indexOf(letter) >= 0){
-        update_game()
-        game_status()
-       
-    } else {
+        let letter = letter_button.innerHTML.toLowerCase()
 
-        incorrect_guess()
-        
+        if (!guessed_letters.includes(letter)) {
+            guessed_letters.push(letter)
+        }
+
+        // Determine whether or not the letter is part
+        // of the word
+
+        // If it is, update the game and check to see if the user has
+        // won the game
+
+        if (word.indexOf(letter) >= 0) {
+            update_game()
+            game_status()
+
+        } else {
+
+            incorrect_guess()
+
+        }
     }
-}
 
-// When an incorrect guess is made, update the picture and check to see
-// if the user has lost the game
-function incorrect_guess(){
+    // When an incorrect guess is made, update the picture and check to see
+    // if the user has lost the game
+    function incorrect_guess() {
 
-    wrong_guesses += 1
+        wrong_guesses += 1
 
-    update_picture();
-    game_status();
+        update_picture();
+        game_status();
 
-}
-
-// Check to see if a user has won or lost a game
-function game_status(){
-
-    if (placeholder === word){
-
-        play_winner_audio();
-        reset();
-
-    } else if (wrong_guesses === max_failed_attempts){
-
-        play_loser_audio();
-        reset();
     }
-}
 
-// Update the picture as the user guesses incorrectly
-function update_picture(){
+    // Check to see if a user has won or lost a game
+    function game_status() {
 
-    document.getElementById('image').src = './img/gallows' + wrong_guesses + '.jpg'
+        if (placeholder === word) {
 
-}
+            winner().play();
+            // setTimeout(confirm('You won!'), 200);
+            setTimeout(() => { confirm('You won!') }, 1000)
+            reset();
 
-// Update the game as the user guesses correctly
-function update_game(){
+        } else if (wrong_guesses === max_failed_attempts) {
 
-    placeholder = word.split('').map(letter => (guessed_letters.indexOf(letter) >= 0 ? letter: " _ ")).join('')
+            loser().play();
+            // setTimeout(confirm('You lost!'), 200);
+            setTimeout(() => { confirm('You lost!') }, 1000)
+            reset();
+        }
+    }
 
-    document.querySelector('.placeholder').innerHTML = placeholder
+    // Update the picture as the user guesses incorrectly
+    function update_picture() {
+
+        document.getElementById('image').src = './img/gallows' + wrong_guesses + '.jpg'
+
+    }
+
+    // Update the game as the user guesses correctly
+    function update_game() {
+
+        placeholder = word.split('').map(letter => (guessed_letters.indexOf(letter) >= 0 ? letter : " _ ")).join('')
+
+        document.querySelector('.placeholder').innerHTML = placeholder
 
     };
 
-// Reset the game when the user clicks the reset button
-function reset(){
-    wrong_guesses = 0;
-    guessed_letters = [];
-    document.getElementById('image').src = './img/gallows0.jpg';
-    button_reset();
-    random_word();
     update_game();
-}
 
-// Reset Letter Buttons
+    // Reset the game when the user clicks the reset button
+    function reset() {
+        wrong_guesses = 0;
+        guessed_letters = [];
+        document.getElementById('image').src = './img/gallows0.jpg';
+        button_reset();
+        random_word();
+        update_game();
+    }
 
-function button_reset() {
-    buttons = document.querySelectorAll('.btn-secondary')
+    // Reset Letter Buttons
 
-    buttons.forEach(button => {
+    function button_reset() {
+        buttons = document.querySelectorAll('.btn-secondary')
 
-        button.removeAttribute('disabled')
-        
-    });
-}
+        buttons.forEach(button => {
 
-// Play Audio
+            button.removeAttribute('disabled')
 
-function play_winner_audio(){
-    document.getElementById('winner').play();
-    window.alert('You won!');
-}
-function play_loser_audio(){
+        });
+    }
 
-    document.getElementById('loser').play();
-    window.alert(`You lost! The colour was: ${word}.`);
+    // Play Audio
 
-}
+   
 
-random_word();
-update_game();
+    // function play_winner_audio() {
+    //     // document.getElementById('winner').play();
+    //     winner()
+    //     setTimeout(confirm('You won!'), 1000);
+    // }
+    // function play_loser_audio() {
+
+    //     // document.getElementById('loser').play();
+    //     loser()
+    //     setTimeout(confirm(`You lost! The colour was: ${word}.`), 1000);
+
+    // }  
+    
+})
+
+
 
 
