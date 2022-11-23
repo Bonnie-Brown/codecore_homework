@@ -9,6 +9,22 @@ let max_failed_attempts = 6;
 let wrong_guesses = 0;
 let guessed_letters = [];
 let placeholder = null;
+let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+// ------------------ Key Test 
+
+// addEventListener('keyup', (event) => {
+
+//   key_up(event)
+    
+// })
+
+// function key_up(event){
+//     console.log(event)
+
+// }
+
+// // ------------------  
 
 
 // Function to Select a Word from Colours at Random
@@ -84,10 +100,14 @@ function incorrect_guess(){
 function game_status(){
 
     if (placeholder === word){
-        window.alert('You won!')
+
+        play_winner_audio();
+        reset();
+
     } else if (wrong_guesses === max_failed_attempts){
-        window.alert('You lost!')
-        document.querySelector('.placeholder').innerHTML = `The colour was: ${word}`
+
+        play_loser_audio();
+        reset();
     }
 }
 
@@ -112,10 +132,35 @@ function reset(){
     wrong_guesses = 0;
     guessed_letters = [];
     document.getElementById('image').src = './img/gallows0.jpg';
+    button_reset();
     random_word();
     update_game();
 }
 
+// Reset Letter Buttons
+
+function button_reset() {
+    buttons = document.querySelectorAll('.btn-secondary')
+
+    buttons.forEach(button => {
+
+        button.removeAttribute('disabled')
+        
+    });
+}
+
+// Play Audio
+
+function play_winner_audio(){
+    document.getElementById('winner').play();
+    window.alert('You won!');
+}
+function play_loser_audio(){
+
+    document.getElementById('loser').play();
+    window.alert(`You lost! The colour was: ${word}.`);
+
+}
 
 random_word();
 update_game();
