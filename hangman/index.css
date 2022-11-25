@@ -1,0 +1,18 @@
+h1 {
+    text-align: center;
+    padding-top: 20px;
+}
+
+h5 {
+    padding-bottom: 150px;
+}
+
+.placeholder{
+    margin-bottom: 180px;
+    background-color: white;
+}
+
+.btn, .btn-secondary{
+    margin-top: 10px;
+}
+
