@@ -11,26 +11,9 @@ $(document).ready(function(){
     let wrong_guesses = 0;
     let guessed_letters = [];
     let placeholder = null;
-    // let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
     const winner = () => new Audio("sounds/tada.wav");
     const loser = () => new Audio("sounds/sad.wav");
-
-    // ------------------ Key Test 
-
-    // addEventListener('keyup', (event) => {
-
-    //   key_up(event)
-
-    // })
-
-    // function key_up(event){
-    //     console.log(event)
-
-    // }
-
-    // // ------------------  
-
 
     // Function to Select a Word from Colours at Random
 
@@ -41,9 +24,8 @@ $(document).ready(function(){
     }
 
     random_word();
-    
 
-    // Add Event Listener to Buttons
+    // Add Event Listener to Buttons and Key Presses
 
     // Reset Button
 
@@ -62,6 +44,14 @@ $(document).ready(function(){
             guess(letter_button)
         })
     });
+
+    // Key Press 
+
+    document.addEventListener('keyup', (event) => {
+        let name = event.key;
+        let code = event.code;
+        guess_with_key(name)
+    })
 
     // Function to react to a clicked button
 
@@ -93,6 +83,37 @@ $(document).ready(function(){
 
         }
     }
+
+    // Function to react to a key press
+
+    function guess_with_key(name){
+
+        // Disable the corresponding letter's button once clicked
+
+        let matching_button = document.querySelector(`.${name}`)
+        matching_button.setAttribute('disabled', true)
+
+        if (!guessed_letters.includes(name)) {
+            guessed_letters.push(name)
+        }
+
+        // Determine whether or not the letter is part
+        // of the word
+
+        // If it is, update the game and check to see if the user has
+        // won the game
+
+        if (word.indexOf(name) >= 0) {
+            update_game()
+            game_status()
+
+        } else {
+
+            incorrect_guess()
+
+        }
+    }
+
 
     // When an incorrect guess is made, update the picture and check to see
     // if the user has lost the game
@@ -167,7 +188,5 @@ $(document).ready(function(){
         });
     }  
 })
-
-
 
 
